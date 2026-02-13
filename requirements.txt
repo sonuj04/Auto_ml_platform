@@ -8,3 +8,4 @@ streamlit
 requests
 matplotlib
 seaborn
+numpy
