@@ -4,3 +4,5 @@ fastapi
 uvicorn
 shap
 joblib
+streamlit
+requests
