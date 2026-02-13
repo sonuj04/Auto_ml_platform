@@ -91,8 +91,20 @@ if uploaded_file:
 
             st.success("Training Complete!")
 
+            import pandas as pd
+
+            if os.path.exists("artifacts/model_comparison.csv"):
+                st.subheader("Model Performance Comparison")
+                comparison_df = pd.read_csv("artifacts/model_comparison.csv")
+                st.dataframe(comparison_df)
+
+
         except Exception as e:
             st.error(f"Training failed: {str(e)}")
+
+
+
+
 
 # predict
 st.divider()
