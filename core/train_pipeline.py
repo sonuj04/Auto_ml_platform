@@ -16,7 +16,7 @@ def train(csv_path, target):
 
     df = pd.read_csv(csv_path)
 
-    # 🚨 Remove rows where target is missing
+    # remove null rows
     df = df.dropna(subset=[target])
 
     if df.shape[0] == 0:
@@ -38,12 +38,14 @@ def train(csv_path, target):
     preprocessor = build_preprocessor(numeric, categorical)
     models = get_models(problem_type)
 
-    best_model, score = train_and_select(
+    best_model, score, results_df = train_and_select(
         X, y, preprocessor, models, problem_type
     )
 
     os.makedirs("artifacts", exist_ok=True)
     joblib.dump(best_model, "artifacts/model.pkl")
+
+    results_df.to_csv("artifacts/model_comparison.csv", index=False)
 
     print(f"Training complete. Best Score: {score}")
 
