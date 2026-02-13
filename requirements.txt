@@ -6,3 +6,5 @@ shap
 joblib
 streamlit
 requests
+matplotlib
+seaborn

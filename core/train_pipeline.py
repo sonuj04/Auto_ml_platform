@@ -16,6 +16,12 @@ def train(csv_path, target):
 
     df = pd.read_csv(csv_path)
 
+    # 🚨 Remove rows where target is missing
+    df = df.dropna(subset=[target])
+
+    if df.shape[0] == 0:
+        raise ValueError("Target column contains only missing values.")
+
     print("Running EDA...")
     report = run_eda(df, target)
     print(report)
@@ -25,6 +31,9 @@ def train(csv_path, target):
 
     X = df.drop(columns=[target])
     y = df[target]
+
+    # remove nan columns
+    X = X.dropna(axis=1, how="all")
 
     preprocessor = build_preprocessor(numeric, categorical)
     models = get_models(problem_type)
